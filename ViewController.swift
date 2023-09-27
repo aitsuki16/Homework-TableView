@@ -7,29 +7,34 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
-
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell")as! TableViewCell
-        
-        return cell
-    }
-    
-    
+class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource =  self
-        tableView.delegate = self
+        tableNib()
         
-        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
     }
-
+    
+    private func tableNib() {
+        tableView.register(UINib(nibName: String(describing: TableViewCell.self), bundle: nil),
+                           forCellReuseIdentifier: String(describing: TableViewCell.self))
+      
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+    extension ViewController: UITableViewDelegate, UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 15
+            
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TableViewCell.self), for: indexPath) as! TableViewCell
+            
+            return cell
+        }
 
 }
 
