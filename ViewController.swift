@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TableViewCell.self), for: indexPath) as! TableViewCell
+            cell.backgroundColor = UIColor.systemOrange
             
             return cell
         }
